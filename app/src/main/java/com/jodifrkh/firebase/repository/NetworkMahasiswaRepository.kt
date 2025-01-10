@@ -2,6 +2,8 @@ package com.jodifrkh.firebase.repository
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.toObject
 import com.jodifrkh.firebase.model.Mahasiswa
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -39,8 +41,19 @@ class NetworkMahasiswaRepository (
         TODO("Not yet implemented")
     }
 
-    override suspend fun getMahasiswaByNim(nim: String): Flow<Mahasiswa> {
-        TODO("Not yet implemented")
+    override suspend fun getMahasiswaByNim(nim: String): Flow<Mahasiswa> = callbackFlow {
+        val mhsDocument = firestore.collection("Mahasiswa")
+            .document(nim)
+            .addSnapshotListener {value, error ->
+                if (value != null) {
+                    val mhs = value.toObject(Mahasiswa::class.java)!!
+                    trySend(mhs)
+                }
+            }
+
+        awaitClose {
+            mhsDocument.remove()
+        }
     }
 
 }
