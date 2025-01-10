@@ -1,9 +1,16 @@
 package com.jodifrkh.firebase.navigation
 
-interface HalamanController {
+interface DestinasiNavigasi {
     val route : String
+    val titleRes: String
 }
 
-object DestinasiHome : HalamanController {
+object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
+    override val titleRes: String = "Home"
+}
+
+object DestinasiInsert : DestinasiNavigasi {
+    override val route: String = "insert"
+    override val titleRes: String = "Insert"
 }
