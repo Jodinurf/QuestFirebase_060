@@ -69,7 +69,7 @@ fun HomeScreen(
             homeUiState = viewModel.mhsUIState,
             retryAction = { viewModel.getMhs() }, modifier = Modifier.padding(innerPadding),
             onDetailClick = onDetailClick, onDeleteClick = {
-                viewModel.getMhs()
+                viewModel.deleteMhs(it)
             }
         )
     }
@@ -80,7 +80,7 @@ fun HomeStatus(
     homeUiState: HomeUiState,
     retryAction: () -> Unit,
     modifier: Modifier = Modifier,
-    onDeleteClick: (String) -> Unit = {},
+    onDeleteClick: (Mahasiswa) -> Unit = {},
     onDetailClick: (String) -> Unit
 ){
     when(homeUiState) {
@@ -139,7 +139,7 @@ fun MhsLayout(
     mahasiswa: List<Mahasiswa>,
     modifier: Modifier = Modifier,
     onDetailClick: (Mahasiswa) -> Unit,
-    onDeleteClick: (String) -> Unit = {}
+    onDeleteClick: (Mahasiswa) -> Unit = {}
 ) {
     LazyColumn (
         modifier = modifier,
@@ -164,7 +164,7 @@ fun MhsLayout(
 fun MhsCard(
     mahasiswa: Mahasiswa,
     modifier: Modifier = Modifier,
-    onDeleteClick: (String) -> Unit = {}
+    onDeleteClick: (Mahasiswa) -> Unit = {}
 ) {
     Card (
         modifier = modifier,
@@ -184,7 +184,7 @@ fun MhsCard(
                     style = MaterialTheme.typography.titleLarge,
                 )
                 Spacer(modifier.weight(1f))
-                IconButton(onClick = {onDeleteClick(mahasiswa.nim)}) {
+                IconButton(onClick = {onDeleteClick(mahasiswa)}) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = null,
