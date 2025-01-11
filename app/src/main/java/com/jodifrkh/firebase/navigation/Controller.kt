@@ -1,12 +1,12 @@
 package com.jodifrkh.firebase.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.jodifrkh.firebase.ui.view.HomeScreen
+import com.jodifrkh.firebase.ui.view.InsertMhsView
 
 @Composable
 fun MainControllerPage(
@@ -21,7 +21,18 @@ fun MainControllerPage(
         ) {
             HomeScreen(
                 onDetailClick = {},
-                navigateToItemEntry = {},
+                navigateToItemEntry = {
+                    navController.navigate(DestinasiInsert.route)
+                },
+            )
+        }
+
+        composable(DestinasiInsert.route) {
+            InsertMhsView(
+                onBack = { navController.popBackStack() },
+                OnNavigate = {
+                    navController.navigate(DestinasiHome.route)
+                }
             )
         }
     }
