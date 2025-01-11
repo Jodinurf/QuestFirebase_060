@@ -1,5 +1,6 @@
 package com.jodifrkh.firebase.repository
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.jodifrkh.firebase.model.Mahasiswa
@@ -51,10 +52,10 @@ class NetworkMahasiswaRepository (
         try {
             firestore.collection("Mahasiswa")
                 .document(mahasiswa.nim)
-                .set(mahasiswa)
+                .delete()
                 .await()
         } catch (e: Exception) {
-            throw Exception("Gagal Mengupdate data Mahasiswa: ${e.message}")
+            throw Exception("Gagal Menghapus data Mahasiswa: ${e.message}")
         }
     }
 
