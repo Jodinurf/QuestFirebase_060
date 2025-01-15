@@ -87,7 +87,7 @@ class NetworkMahasiswaRepository (
 //        }
 //    }
 
-    override suspend fun getMahasiswaByNim(nim: String): Flow<Mahasiswa> = callbackFlow {
+    override fun getMahasiswaByNim(nim: String): Flow<Mahasiswa> = callbackFlow {
         val mhsDocument = firestore.collection("Mahasiswa")
             .document(nim)
             .addSnapshotListener {value, error ->
